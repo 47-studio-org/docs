@@ -27,7 +27,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
       - name: Setup Node
-        uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+        uses: actions/setup-node@eeb10cff27034e7acf239c5d29f62154018672fd
         with:
           node-version: 16.14.x
           cache: npm
@@ -44,7 +44,7 @@ jobs:
       - name: Remove script results file
         run: rm ./results.md
       - name: Create pull request
-        uses: peter-evans/create-pull-request@f22a7da129c901513876a2380e2dae9f8e145330
+        uses: peter-evans/create-pull-request@923ad837f191474af6b1721408744feb989a4c27
         env:
           # Disable pre-commit hooks; they don't play nicely here
           HUSKY: '0'
