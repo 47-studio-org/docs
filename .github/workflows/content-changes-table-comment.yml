@@ -57,7 +57,7 @@ jobs:
         run: .github/actions-scripts/get-preview-app-info.sh
 
       - name: Setup Node
-        uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+        uses: actions/setup-node@eeb10cff27034e7acf239c5d29f62154018672fd
         with:
           node-version: 16.14.x
           cache: npm
@@ -74,7 +74,7 @@ jobs:
         run: .github/actions-scripts/content-changes-table-comment.js
 
       - name: Find content directory changes comment
-        uses: peter-evans/find-comment@d2dae40ed151c634e4189471272b57e76ec19ba8
+        uses: peter-evans/find-comment@1769778a0c5bd330272d749d12c036d65e70d39d
         id: findComment
         with:
           issue-number: ${{ github.event.pull_request.number }}

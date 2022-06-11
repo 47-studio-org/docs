@@ -7,6 +7,9 @@ name: Node.js Tests
 on:
   workflow_dispatch:
   pull_request:
+  push:
+    branches:
+      - gh-readonly-queue/main/**
 
 permissions:
   contents: read
@@ -52,7 +55,7 @@ jobs:
       - name: Figure out which docs-early-access branch to checkout, if internal repo
         if: ${{ github.repository == 'github/docs-internal' }}
         id: check-early-access
-        uses: actions/github-script@2b34a689ec86a68d8ab9478298f91d5401337b7d
+        uses: actions/github-script@7a5c598405937d486b0331594b5da2b14db670da
         env:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         with:
@@ -115,7 +118,7 @@ jobs:
           echo "${{ steps.get_diff_files.outputs.files }}" > get_diff_files.txt
 
       - name: Setup node
-        uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+        uses: actions/setup-node@eeb10cff27034e7acf239c5d29f62154018672fd
         with:
           node-version: 16.14.x
           cache: npm
@@ -131,6 +134,11 @@ jobs:
 
       - name: Run build script
         run: npm run build
+
+      - name: Warm possible disk caching
+        env:
+          NODE_ENV: test
+        run: ./script/warm-before-tests.mjs
 
       - name: Run tests
         env:
